@@ -1,0 +1,36 @@
+server:
+  port: 0  # Puerto aleatorio
+
+spring:
+  application:
+    name: orders-service
+  config:
+    import: "configserver:"
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/ordersdb
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root   # Cambia esto si tienes otro usuario
+    password: admin   # Cambia esto si tienes otra contraseña
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
